@@ -37,8 +37,8 @@ train/sft.py \
 --weight_decay 1e-4 \
 --adam_beta1 0.9 \
 --adam_beta2 0.95 \
---output_dir="ckpts/s1_${uid}" \
---hub_model_id="simplescaling/s1-${uid}" \
+--output_dir="kj42/s1_replicate_${uid}" \
+--hub_model_id="kj42/s1_replicate_${uid}" \
 --push_to_hub=True \
 --hub_always_push=True \
 --num_train_epochs ${epochs} \
