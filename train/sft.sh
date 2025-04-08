@@ -1,7 +1,7 @@
 # Reference Running: bash train/sft.sh
 # {'train_runtime': 5268.8407, 'train_samples_per_second': 0.949, 'train_steps_per_second': 0.119, 'train_loss': 0.1172730620391667, 'epoch': 5.0}
 uid="$(date +%Y%m%d_%H%M%S)"
-base_model="Qwen/Qwen2.5-32B-Instruct"
+base_model="Qwen/Qwen2.5-14B-Instruct"
 lr=1e-5
 min_lr=0
 epochs=5
@@ -34,9 +34,9 @@ torchrun --nproc-per-node ${gpu_count} --master_port 12345 \
     --weight_decay=${weight_decay} \
     --adam_beta1=0.9 \
     --adam_beta2=0.95 \
-    --output_dir="kj42/s1_32b_jee-${uid}" \
+    --output_dir="kj42/jee_14b-${uid}" \
     --push_to_hub=${push_to_hub} \
-    --save_only_model=True \
-    --gradient_checkpointing=True #\ Enable gradient checkpointing for efficient memory usage with 8 H100 GPUs.
+    --save_only_model=True
+    # --gradient_checkpointing=True #\ Enable gradient checkpointing for efficient memory usage with 8 H100 GPUs.
     # --accelerator_config='{"gradient_accumulation_kwargs": {"sync_each_batch": true}}'
 

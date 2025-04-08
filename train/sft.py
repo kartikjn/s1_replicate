@@ -13,7 +13,7 @@ import trl
 class TrainingConfig:
     model_name: str = field(default="Qwen/Qwen2.5-32B-Instruct")
     block_size: int = field(default=32768)
-    wandb_project: Optional[str] = field(default="s1_replicate")
+    wandb_project: Optional[str] = field(default="jee_14b_8k")
     wandb_entity: Optional[str] = field(default="ihy-rapid-innovation")
     train_file_path: Optional[str] = field(default='simplescaling/s1K_tokenized')
     dagger: bool = field(default=False)
@@ -38,7 +38,9 @@ def train():
                   "attn_implementation": "flash_attention_2", "use_cache": False}
         model = transformers.AutoModelForCausalLM.from_pretrained(config.model_name, **kwargs)
     else:
-        model = transformers.AutoModelForCausalLM.from_pretrained(config.model_name)
+        kwargs = {"device_map": "cuda", "torch_dtype": "auto",
+                  "attn_implementation": "flash_attention_2", "use_cache": False}
+        model = transformers.AutoModelForCausalLM.from_pretrained(config.model_name, **kwargs)
 
     dataset = load_dataset(config.train_file_path)
 
